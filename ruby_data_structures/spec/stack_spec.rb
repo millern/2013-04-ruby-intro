@@ -1,4 +1,4 @@
-require './src/stack.rb'
+require '../src/stack.rb'
 
 describe Stack do
   before(:each) do
