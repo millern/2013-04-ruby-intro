@@ -24,25 +24,47 @@ describe Tree do
   end
   describe("#remove") do
     before(:each) do
-      (1..3).each do |i|
-        @tree.insert(i)
-      end
+      @tree.insert(2)
+      @tree.insert(1)
+      @tree.insert(3)
     end
-    xit("should remove an element") do
+    it("should remove a leaf element") do
       @tree.remove(3)
-      @tree.right.should eq(nil)
+      @tree.root.value.should eq(2)
+      @tree.root.right.should eq(nil)
+      @tree.root.left.value.should eq(1)
     end
-    xit("should remove another element") do
+    it("should remove another leaf element") do
       @tree.remove(3)
       @tree.remove(1)
       @tree.root.right.should eq(nil)
       @tree.root.left.should eq(nil)
     end
-    xit("should remove the root") do
+    it("should remove the root") do
       @tree.remove(3)
-      @tree.remove(2)
       @tree.remove(1)
+      @tree.remove(2)
       @tree.root.should eq(nil)
+    end
+  end
+  describe("#remove from internal nodes") do
+    
+    before(:each) do
+      @tree.insert(7);
+      @tree.insert(3);
+      @tree.insert(10)
+      @tree.insert(4)
+      @tree.insert(1)
+      @tree.insert(8)
+      @tree.insert(12)
+    end
+    it("should remove from internal nodes") do
+      @tree.remove(3)
+      @tree.contains?(3).should eq(false)
+      @tree.remove(10)
+      @tree.contains?(10).should eq(false)
+      @tree.root.left.value.should eq(4)
+      @tree.root.left.right.should eq(nil)
     end
   end
   describe("#contains") do
@@ -68,10 +90,5 @@ describe Tree do
       @tree.contains?(0).should eq(false)
     end
   end
-
-
-
-
-
 
 end
